@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a152dc6984b42bf822ec983425c115, type: 3}
+  m_Name: ENEMY_E4
+  m_EditorClassIdentifier: Assembly-CSharp::PromptsmithProtocol.EnemyDefSO
+  id: E4
+  displayName: Firewall Drone
+  isBoss: 0
+  baseMaxHp: 60
+  passiveKind: 1
+  passiveValue: 2
+  intents:
+  - id: fw_shield
+    description: Fortify
+    kind: 1
+    basePower: 10
+    appliesWeak: 0
+    appliesMarked: 0
+    appliesJam: 0
+    grantsShield: 1
+    healsSelf: 0
+    multiHit: 0
+    hits: 1
+  - id: fw_attack
+    description: Policy Beam
+    kind: 0
+    basePower: 11
+    appliesWeak: 0
+    appliesMarked: 0
+    appliesJam: 0
+    grantsShield: 0
+    healsSelf: 0
+    multiHit: 0
+    hits: 1
+  - id: fw_mark
+    description: Scan
+    kind: 3
+    basePower: 1
+    appliesWeak: 0
+    appliesMarked: 1
+    appliesJam: 0
+    grantsShield: 0
+    healsSelf: 0
+    multiHit: 0
+    hits: 1
