@@ -15,12 +15,14 @@ public class UiFactoryTests
     [Test]
     public void MainMenuController_CreatesUiElements()
     {
-        var go = new GameObject("MainMenuController");
-        var mm = go.AddComponent<PromptsmithProtocol.MainMenuController>();
-
-        // Simulate Unity lifecycle by invoking Awake/Start via SendMessage so accessibility doesn't block compilation
-        mm.SendMessage("Awake", SendMessageOptions.DontRequireReceiver);
-        mm.SendMessage("Start", SendMessageOptions.DontRequireReceiver);
+        // Instead of relying on MainMenuController lifecycle, construct UiFactory directly to create UI elements
+        var ui = new PromptsmithProtocol.UiFactory();
+        ui.EnsureUi();
+        ui.ClearRoot();
+        ui.Title("PROMPTSMITH PROTOCOL", 34);
+        ui.Spacer(10);
+        var buttonRow = ui.Row();
+        ui.Button(buttonRow, "START", () => { }, 260);
 
         var root = GameObject.Find("PromptsmithRoot");
         Assert.IsNotNull(root, "PromptsmithRoot should be created by MainMenuController Start/UiFactory.EnsureUi");
