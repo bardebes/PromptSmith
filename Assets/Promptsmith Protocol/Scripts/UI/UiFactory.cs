@@ -189,13 +189,34 @@ buttonGo.transform.SetParent(parent, false);
 var button = buttonGo.GetComponent<Button>();
 button.onClick.AddListener(() => onClick?.Invoke());
 
+// Ensure the button has a visible background. Use the built-in UI sprite if available,
+// otherwise fall back to a solid color so the button is visible in the editor and play.
+var img = buttonGo.GetComponent<Image>();
+try
+{
+    var builtin = Resources.GetBuiltinResource<Sprite>("UI/Skin/UISprite.psd");
+    if (builtin != null) img.sprite = builtin;
+}
+catch { /* ignore if not available in some Unity builds */ }
+img.color = new Color(0.14f, 0.14f, 0.18f, 1f);
+
 var textGo = new GameObject("Text", typeof(RectTransform), typeof(Text));
 textGo.transform.SetParent(buttonGo.transform, false);
 
 var text = textGo.GetComponent<Text>();
 text.text = label;
 text.font = font;
+text.fontSize = 18;
+text.color = Color.white;
 text.alignment = TextAnchor.MiddleCenter;
+text.raycastTarget = false;
+
+// Stretch text to fill the button so label is centered and visible even without a sprite
+var tr = textGo.GetComponent<RectTransform>();
+tr.anchorMin = Vector2.zero;
+tr.anchorMax = Vector2.one;
+tr.offsetMin = Vector2.zero;
+tr.offsetMax = Vector2.zero;
 
 var layout = buttonGo.GetComponent<LayoutElement>();
 layout.preferredWidth = width;
