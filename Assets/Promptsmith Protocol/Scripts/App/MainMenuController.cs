@@ -8,7 +8,7 @@ namespace PromptsmithProtocol
         private static MainMenuController _inst;
         private UiFactory _ui;
 
-        internal void Awake()
+        public void Awake()
         {
             if (_inst != null && _inst != this)
             {
@@ -18,7 +18,7 @@ namespace PromptsmithProtocol
             _inst = this;
         }
 
-        internal void Start()
+        public void Start()
         {
             _ui = new UiFactory();
             _ui.EnsureUi();

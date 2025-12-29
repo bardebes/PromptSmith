@@ -18,11 +18,9 @@ public class UiFactoryTests
         var go = new GameObject("MainMenuController");
         var mm = go.AddComponent<PromptsmithProtocol.MainMenuController>();
 
-        // Simulate Unity lifecycle by invoking private Awake/Start via reflection
-        var awake = typeof(PromptsmithProtocol.MainMenuController).GetMethod("Awake", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        var start = typeof(PromptsmithProtocol.MainMenuController).GetMethod("Start", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        awake?.Invoke(mm, null);
-        start?.Invoke(mm, null);
+        // Simulate Unity lifecycle by invoking Awake/Start via SendMessage so accessibility doesn't block compilation
+        mm.SendMessage("Awake", SendMessageOptions.DontRequireReceiver);
+        mm.SendMessage("Start", SendMessageOptions.DontRequireReceiver);
 
         var root = GameObject.Find("PromptsmithRoot");
         Assert.IsNotNull(root, "PromptsmithRoot should be created by MainMenuController Start/UiFactory.EnsureUi");
