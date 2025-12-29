@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using Newtonsoft.Json;
+using PromptsmithProtocol;
 
 [InitializeOnLoad]
 static class JsonDefaultsEditor
@@ -17,7 +18,7 @@ static class JsonDefaultsEditor
         JsonConvert.DefaultSettings = () => new JsonSerializerSettings
         {
             MissingMemberHandling = MissingMemberHandling.Ignore,
-            Converters = new List<JsonConverter> { new SafeStringEnumConverter() },
+            Converters = new List<JsonConverter> { new EditorSafeStringEnumConverter() },
             Error = (sender, args) =>
             {
                 // Swallow enum parse and other JsonSerialization exceptions to avoid noisy editor stack traces.
