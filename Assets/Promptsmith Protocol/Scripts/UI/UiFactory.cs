@@ -92,15 +92,23 @@ es.AddComponent<EventSystem>();
         
 public void ClearRoot()
 {
-EnsureUi();
-if (root == null) return;
+    // Avoid calling EnsureUi() here to prevent recursion when EnsureUi() reuses the
+    // existing root and calls ClearRoot(). If `root` is not set, try to find the
+    // existing root GameObject in the scene and use it.
+    if (root == null)
+    {
+        var existingGo = GameObject.Find(RootName);
+        if (existingGo == null) return;
+        root = existingGo.GetComponent<RectTransform>();
+        if (root == null) return;
+    }
 
-foreach (Transform child in root)
-{
-SafeDestroy(child.gameObject);
-}
+    foreach (Transform child in root)
+    {
+        SafeDestroy(child.gameObject);
+    }
 
-Canvas.ForceUpdateCanvases();
+    Canvas.ForceUpdateCanvases();
 }
 
         public void Spacer(float height = 10)
