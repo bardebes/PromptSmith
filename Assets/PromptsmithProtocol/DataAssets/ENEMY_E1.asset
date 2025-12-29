@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a152dc6984b42bf822ec983425c115, type: 3}
+  m_Name: ENEMY_E1
+  m_EditorClassIdentifier: Assembly-CSharp::PromptsmithProtocol.EnemyDefSO
+  id: E1
+  displayName: Tokenizer Swarm
+  isBoss: 0
+  baseMaxHp: 40
+  passiveKind: 0
+  passiveValue: 0
+  intents:
+  - id: swarm_hit
+    description: Swarm Hits
+    kind: 0
+    basePower: 6
+    appliesWeak: 0
+    appliesMarked: 0
+    appliesJam: 0
+    grantsShield: 0
+    healsSelf: 0
+    multiHit: 1
+    hits: 2
+  - id: swarm_mark
+    description: Tag You
+    kind: 3
+    basePower: 1
+    appliesWeak: 0
+    appliesMarked: 1
+    appliesJam: 0
+    grantsShield: 0
+    healsSelf: 0
+    multiHit: 0
+    hits: 1
+  - id: swarm_shield
+    description: Scatter Shield
+    kind: 1
+    basePower: 4
+    appliesWeak: 0
+    appliesMarked: 0
+    appliesJam: 0
+    grantsShield: 1
+    healsSelf: 0
+    multiHit: 0
+    hits: 1
