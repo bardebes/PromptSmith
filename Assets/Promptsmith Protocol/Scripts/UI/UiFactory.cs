@@ -90,17 +90,36 @@ es.AddComponent<EventSystem>();
         }
 
         
+private bool _isClearingRoot = false;
+
 public void ClearRoot()
 {
-EnsureUi();
-if (root == null) return;
+    // Guard against re-entrancy to avoid StackOverflow if nested calls occur.
+    if (_isClearingRoot) return;
 
-foreach (Transform child in root)
-{
-SafeDestroy(child.gameObject);
-}
+    _isClearingRoot = true;
+    try
+    {
+        // If we don't have a cached root, try to find it in the scene.
+        if (root == null)
+        {
+            var existingGo = GameObject.Find(RootName);
+            if (existingGo == null) return;
+            root = existingGo.GetComponent<RectTransform>();
+            if (root == null) return;
+        }
 
-Canvas.ForceUpdateCanvases();
+        foreach (Transform child in root)
+        {
+            SafeDestroy(child.gameObject);
+        }
+
+        Canvas.ForceUpdateCanvases();
+    }
+    finally
+    {
+        _isClearingRoot = false;
+    }
 }
 
         public void Spacer(float height = 10)
